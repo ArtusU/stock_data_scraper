@@ -17,8 +17,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_celery_beat',
+    'django_celery_results',
     'stocks',
 ]
+
+from stock_scraper.celery.conf import *
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
