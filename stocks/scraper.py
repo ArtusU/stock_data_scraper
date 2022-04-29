@@ -14,16 +14,36 @@ SERVICES = {
 class StockTickerScraper:
     '''
     Usage:
-    StockTickerScraper(service='echo', ticker='AAPL').scrape()
+    StockTickerScraper(service='echo', ticker='GOOG').scrape()
     '''
     service = 'echo'
     url =  None
-    ticker = 'AAPL'
+    ticker = 'GOOG'
     
-    def __init__(self, service='echo', ticker='AAPL'):
+    def __init__(self, service='echo', ticker='GOOG'):
         self.service = service
         self.url = SERVICES[service]
         self.ticker = ticker
+        
+    
+    def scrape_business_insider(self, url=None):
+        if url == None:
+            return "", 0
+        r = requests.get(url)
+        html = HTML(html=r.text)
+        name = html.find('.price-section__label')[-1].text
+        price = html.find('.price-section__current-value')[-1].text
+        return name, price
+    
+    
+    def scrape_google_finance(self, url=None):
+        if url == None:
+            return "", 0
+        r = requests.get(url)
+        html = HTML(html=r.text)
+        name = html.find('.zzDege')[-1].text
+        price = html.find('.kf1m0')[0].text
+        return name, price
         
     
     def scrape_echo(self, url=None):
@@ -38,7 +58,7 @@ class StockTickerScraper:
     def scrape(self, ticker=None):
         to_scrape_ticker = ticker or self.ticker
         if to_scrape_ticker == None:
-            to_scrape_ticker = "AAPL"
+            to_scrape_ticker = "GOOG"
         url = self.url.format(ticker=to_scrape_ticker)
         func = getattr(self, f"scrape_{self.service}")
         name, price = func(url)
