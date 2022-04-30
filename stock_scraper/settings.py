@@ -1,3 +1,4 @@
+import os
 from decouple import config
 from pathlib import Path
 
@@ -12,7 +13,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
-    'django.contrib.auth',
+    'django.contrib.auth', 
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
@@ -22,7 +23,12 @@ INSTALLED_APPS = [
     'stocks',
 ]
 
-from stock_scraper.celery.conf import *
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BROKER_URL = os.environ.get("CELERY_BROKER", "redis://localhost:6379")
+CELERY_RESULT_BACKEND = os.environ.get("CELERY_BACKEND", "redis://localhost:6379")
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TASK_SERIALIZER = 'json'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
