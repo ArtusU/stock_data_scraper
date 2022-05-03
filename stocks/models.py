@@ -25,12 +25,28 @@ class Company(models.Model):
         ordering = ['name']
         verbose_name = 'Company'
         verbose_name_plural = 'Companies'
-    
+
+
+class PriceLookupEventManager(models.Manager):
+    def create_event(self, ticker, price, name='', service='echo'):
+        print(name, price, service)
+        try:
+            company_obj = Company.objects.get(ticker__iexact=ticker)
+        except Company.DoesNotExist:
+            company_obj = None
+        except:
+            company_obj = None
+        obj = self.model(ticker=ticker, price=price, name=name, service=service)
+        obj.company = company_obj
+        obj.save()
+        return obj
     
 class PriceLookupEvent(models.Model):
     company = models.ForeignKey(Company, null=True, on_delete=models.SET_NULL)
     ticker = models.CharField(max_length=20)
     name = models.CharField(max_length=220, null=True, blank=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
-    source = models.CharField(max_length=50, choices=STOCK_MARKET_LOOKUP_SOURCES, default='echo')
+    service = models.CharField(max_length=50, choices=STOCK_MARKET_LOOKUP_SOURCES, default='echo')
     timestamp = models.DateTimeField(auto_now_add=True)
+    
+    objects = PriceLookupEventManager()

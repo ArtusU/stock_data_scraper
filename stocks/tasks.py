@@ -1,6 +1,7 @@
 import time
 from celery import shared_task
 from .scraper import StockTickerScraper
+from .models import PriceLookupEvent
 
 
 @shared_task
@@ -13,5 +14,4 @@ def hello_world(num=10):
 def perform_scrape(ticker='GOOG', service='echo'):
     client = StockTickerScraper(service=service)
     name, price = client.scrape(ticker=ticker)
-    print(f'{name} {price}')
-    return name, price
+    PriceLookupEvent.objects.create_event(name, price, service=service)
