@@ -1,3 +1,17 @@
 from django.contrib import admin
 
-# Register your models here.
+from .models import Company, PriceLookupEvent
+
+
+admin.site.register(PriceLookupEvent)
+
+class PriceLookupEventAdmin(admin.TabularInline):
+    model = PriceLookupEvent
+    extra = 0
+
+class CompanyAdmin(admin.ModelAdmin):
+    inlines = [PriceLookupEventAdmin]
+    class Meta:
+        model = Company
+
+admin.site.register(Company, CompanyAdmin)
