@@ -1,5 +1,7 @@
 from django.db import models
 
+from django.db.models.signals import post_save
+
 
 
 STOCK_MARKET_LOOKUP_SOURCES = (
@@ -50,3 +52,19 @@ class PriceLookupEvent(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     
     objects = PriceLookupEventManager()
+    
+    
+# def price_event_post_save(sender, instance, created, *args, **kwargs):
+#     if created:
+#         if not instance.company:
+#             try:
+#                 company_obj = Company.objects.get(ticker__iexact=instance.ticker)
+#             except Company.DoesNotExist:
+#                 company_obj = None
+#             except:
+#                 company_obj = None
+#             instance.company = company_obj
+#             instance.save()
+#     return
+
+# post_save.connect(price_event_post_save, sender=PriceLookupEvent)

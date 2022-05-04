@@ -32,7 +32,7 @@ class StockTickerScraper:
         r = requests.get(url)
         html = HTML(html=r.text)
         name = html.find('.price-section__label')[-1].text
-        price = html.find('.price-section__current-value')[-1].text
+        price = float((html.find('.price-section__current-value')[-1].text).replace(',', ''))
         return name, price
     
     
@@ -42,7 +42,7 @@ class StockTickerScraper:
         r = requests.get(url)
         html = HTML(html=r.text)
         name = html.find('.zzDege')[-1].text
-        price = html.find('.kf1m0')[0].text
+        price = float((html.find('.kf1m0')[0].text).replace(',', '').replace('$', ''))
         return name, price
         
     
