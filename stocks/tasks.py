@@ -14,4 +14,4 @@ def hello_world(num=10):
 def perform_scrape(ticker='GOOG', service='echo'):
     client = StockTickerScraper(service=service)
     name, price = client.scrape(ticker=ticker)
-    PriceLookupEvent.objects.create_event(name, price, service=service)
+    PriceLookupEvent.objects.create_event(ticker=ticker, price=price, name=name, service=service)
