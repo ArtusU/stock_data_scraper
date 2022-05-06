@@ -1,6 +1,8 @@
 from django.db import models
 
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, pre_save
+
+from .tasks import company_price_scrape_task, company_granular_price_scrape_task
 
 
 
@@ -20,6 +22,9 @@ class Company(models.Model):
     has_granular_scraping = models.BooleanField(default=False)
     one_off_scrape = models.BooleanField(default=False)
     
+    def scrape(self, service='business_insider'):
+        return company_granular_price_scrape_task.delay(self.id, service='business_insider')
+    
     def __str__(self):
         return f"{self.name} ({self.ticker})"
     
@@ -27,6 +32,15 @@ class Company(models.Model):
         ordering = ['name']
         verbose_name = 'Company'
         verbose_name_plural = 'Companies'
+        
+
+def company_pre_save(sender, instance, *args, **kwargs):
+    if instance.id:
+        if instance.one_off_scrape:
+            instance.one_off_scrape = False
+            instance.scrape()
+
+pre_save.connect(company_pre_save, sender=Company)
 
 
 class PriceLookupEventManager(models.Manager):
