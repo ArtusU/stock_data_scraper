@@ -11,6 +11,7 @@ class PriceLookupEventAdmin(admin.TabularInline):
 
 class CompanyAdmin(admin.ModelAdmin):
     inlines = [PriceLookupEventAdmin]
+    readonly_fields = ['periodic_task']
     class Meta:
         model = Company
 
