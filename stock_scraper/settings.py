@@ -1,10 +1,12 @@
 from decouple import config
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = config('DEBUG', default=False, cast=bool)
+DEBUG = os.environ.get("IS_PROD") != "true"
 
 ALLOWED_HOSTS = []
 
