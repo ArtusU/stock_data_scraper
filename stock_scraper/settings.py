@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = os.environ.get("IS_PROD") != "true"
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['stock-data-scraper.herokuapp.com']
 
 # Application definition
 
@@ -65,6 +65,12 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+if not DEBUG:
+    import dj_database_url
+    db_from_env = dj_database_url.config()
+    DATABASES['default'].update(db_from_env)
+    DATABASES['default']['CON_MAX_AGE'] = 500
 
 
 # Password validation
