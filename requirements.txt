@@ -27,7 +27,7 @@ greenlet==1.1.2
 gunicorn==20.1.0
 idna==3.3
 importlib-metadata==4.11.3
-kombu==4.6.11
+kombu
 lxml==4.8.0
 packaging==21.3
 parse==1.19.0
