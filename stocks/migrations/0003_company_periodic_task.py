@@ -7,7 +7,7 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('django_celery_beat', '0015_edit_solarschedule_events_choices'),
+        #('django_celery_beat', '0015_edit_solarschedule_events_choices'),
         ('stocks', '0002_auto_20220503_0941'),
     ]
 
