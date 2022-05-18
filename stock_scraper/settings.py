@@ -1,10 +1,9 @@
-from decouple import config
 from pathlib import Path
 import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = config('SECRET_KEY')
+SECRET_KEY = os.environ.get('SECRET_KEY', '&=th!0qi1q85ge%@7@$n&4sbvl!u*e^y$_bsddksk29qh#w#s#')
 DEBUG = os.environ.get("IS_PROD") != "true"
 
 ALLOWED_HOSTS = ['stock-data-scraper.herokuapp.com', '127.0.0.1']
