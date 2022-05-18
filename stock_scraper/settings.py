@@ -7,7 +7,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 DEBUG = os.environ.get("IS_PROD") != "true"
 
-ALLOWED_HOSTS = ['stock-data-scraper.herokuapp.com']
+ALLOWED_HOSTS = ['stock-data-scraper.herokuapp.com', '127.0.0.1']
 
 # Application definition
 
