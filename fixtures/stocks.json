@@ -1,0 +1,62 @@
+[
+{
+    "model": "stocks.company",
+    "pk": 1,
+    "fields": {
+        "periodic_task": 6,
+        "name": "Alphabet Inc.",
+        "ticker": "GOOG",
+        "description": "",
+        "active": true,
+        "timestamp": "2022-05-04T08:06:18.289Z",
+        "scraping_scheduler_enabled": true,
+        "has_granular_scraping": false,
+        "one_off_scrape": false
+    }
+},
+{
+    "model": "stocks.company",
+    "pk": 2,
+    "fields": {
+        "periodic_task": null,
+        "name": "Apple",
+        "ticker": "AAPL",
+        "description": "",
+        "active": false,
+        "timestamp": "2022-05-11T11:03:25.648Z",
+        "scraping_scheduler_enabled": false,
+        "has_granular_scraping": false,
+        "one_off_scrape": false
+    }
+},
+{
+    "model": "stocks.company",
+    "pk": 3,
+    "fields": {
+        "periodic_task": null,
+        "name": "Tesla",
+        "ticker": "TSLA",
+        "description": "",
+        "active": false,
+        "timestamp": "2022-05-11T11:16:51.011Z",
+        "scraping_scheduler_enabled": false,
+        "has_granular_scraping": false,
+        "one_off_scrape": false
+    }
+},
+{
+    "model": "stocks.company",
+    "pk": 4,
+    "fields": {
+        "periodic_task": null,
+        "name": "Meta Platforms, Inc.",
+        "ticker": "FB",
+        "description": "",
+        "active": false,
+        "timestamp": "2022-05-11T11:41:30.144Z",
+        "scraping_scheduler_enabled": false,
+        "has_granular_scraping": false,
+        "one_off_scrape": false
+    }
+}
+]
